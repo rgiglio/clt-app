@@ -1,10 +1,5 @@
-PORT ?= 8080
-
 install:
-	poetry install
-
-app-dry:
-	export DEBUG=true; poetry run python app.py
+	pip3 install requirements.txt
 
 app:
-	poetry run gunicorn app:server --bind="0.0.0.0:${PORT}"
+	python3 app.py

@@ -1,0 +1,11 @@
+numpy
+pandas
+joblib
+dash
+jupyter
+notebook
+ipykernel
+dash-table
+dash-bootstrap-components
+gunicorn
+scipy
