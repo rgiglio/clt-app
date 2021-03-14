@@ -28,8 +28,16 @@ sample_size = dcc.Input(
     min=2, max=10**6, step=1, value=5,
     style={"margin-left": "15px"}
 )
+distribution = dcc.Dropdown(
+    id='distribution',
+    placeholder='Distribution',
+    options=[{'label': v, 'value': v} for v in ['uniform', 'normal low variance', 'normal high variance']],
+    value='uniform',
+    style={"margin-left": "15px"}
+)
 reset_button = dbc.Button('Reset', id='reset', n_clicks=0)
 addup_button = dbc.Button('Add 1 sample', id='addup', n_clicks=0, block=True)
 addup1000_button = dbc.Button('Add 1000 samples', id='addup1000', n_clicks=0, block=True)
 
 clt_output = dcc.Graph(id='clt-output')
+table_output = mk_empty_datatable('table-output')

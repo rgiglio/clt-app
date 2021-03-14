@@ -24,7 +24,11 @@ layout = html.Div([
     html.Br(),
     dcc.Markdown('You can think of the population as consisting of having an extremely large number of balls with 0\'s, an extremely large number with 1\'s, etc. on them.'),
     html.Br(),
-    dcc.Markdown('The height of the distribution shows the relative number of balls of each number. There is an equal number of balls for each number, so the distribution is a rectangle.'),
+    dcc.Markdown('The height of the distribution shows the relative number of balls of each number.'),
+    html.Br(),
+    dbc.Row([
+        html.Label(['Population distribution'], style={"margin-left": "15px", 'font-weight': 'bold', "text-align": "center"}), cp.distribution,
+    ]),
     html.Br(),
     dcc.Markdown(f'If you push the `add 1 sample` buton below, `K` balls are selected and are plotted on the second graph. The mean of this sample of `K` is then computed and plotted on the third graph.'),
     html.Br(),
@@ -48,6 +52,9 @@ layout = html.Div([
     html.Br(),
     dbc.Col(cp.addup1000_button),
     html.Br(),
+    dbc.Row([
+        dbc.Col(dbc.Spinner(cp.table_output)),
+    ]),
     dbc.Row([
         dbc.Col(dbc.Spinner(cp.clt_output)),
     ]),
