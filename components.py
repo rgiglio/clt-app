@@ -8,6 +8,7 @@ from dash_table import DataTable
 from utils import mk_empty_datatable
 
 
+session = dcc.Store(id='session', storage_type='session')
 number_of_balls = dcc.Input(
     id='number-of-balls',
     type='number',

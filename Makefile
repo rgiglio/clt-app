@@ -1,5 +1,8 @@
 install:
-	pip3 install requirements.txt
+	pip3 install -r requirements.txt
+
+app-dry:
+	export DEBUG=true; python3 app.py
 
 app:
-	python3 app.py
+	gunicorn --workers 4 app:server

@@ -3,14 +3,6 @@ import pandas as pd
 import numpy as np
 
 
-sample_means = []
-
-
-def reset():
-    global sample_means
-    sample_means = []
-
-
 def prepare(data_series, number_of_balls):
     return (
         pd.merge(
@@ -26,20 +18,21 @@ def prepare(data_series, number_of_balls):
     )
 
 
-def plot(dist, population, number_of_balls, n_samples, sample_size):
+def plot(dist, population, number_of_balls, n_samples, sample_size, session_data):
     population = pd.Series(population)
     pop_mean = population.mean()
     pop_std = population.std()
-    global sample_means
+    if session_data is None or session_data != session_data:
+        session_data = []
     for _ in range(n_samples):
         sample = pd.Series(dist.rvs(sample_size))
         sample_mean = sample.mean()
         sample_std = sample.std()
-        sample_means.append(sample_mean)
-    num_samples_so_far = len(sample_means)
+        session_data.append(sample_mean)
+    num_samples_so_far = len(session_data)
     if num_samples_so_far > 0:
-        mean_sample_mean = sum(sample_means) / num_samples_so_far
-        std_sample_mean = pd.Series(sample_means).std()
+        mean_sample_mean = sum(session_data) / num_samples_so_far
+        std_sample_mean = pd.Series(session_data).std()
     else:
         mean_sample_mean = np.nan
         std_sample_mean = np.nan
@@ -65,7 +58,7 @@ def plot(dist, population, number_of_balls, n_samples, sample_size):
                 'marker': {'color': 'red'}
             },
             {
-                'x': pd.Series(sample_means),
+                'x': pd.Series(session_data),
                 'type': 'histogram',
                 'xaxis': 'x3',
                 'yaxis': 'y3',
@@ -162,10 +155,10 @@ def plot(dist, population, number_of_balls, n_samples, sample_size):
     ).set_index('index').applymap(lambda x: f'{x:.2f}').reset_index()
     columns = [{"name": i, "id": i} for i in df.columns]
     data = df.to_dict('records')
-    return figure, columns, data
+    return figure, columns, data, session_data
 
 
-def update_figure(distribution, number_of_balls, number_of_samples, sample_size):
+def update_figure(distribution, number_of_balls, number_of_samples, sample_size, session_data):
     if distribution == 'uniform': 
         dist = stats.randint(0, number_of_balls)
     elif distribution == 'normal low variance': 
@@ -175,4 +168,5 @@ def update_figure(distribution, number_of_balls, number_of_samples, sample_size)
     else:
         raise NotImplementedError
     population = dist.rvs(10**7)
-    return plot(dist, population, number_of_balls, number_of_samples, sample_size)
+    figure, columns, data, session_data = plot(dist, population, number_of_balls, number_of_samples, sample_size, session_data)
+    return figure, columns, data, session_data

@@ -7,6 +7,7 @@ from utils import mk_card
 
 
 layout = html.Div([
+    cp.session,
     html.Br(),
     html.H1('Sampling Distribution Demonstration'),
     html.Br(),
