@@ -8,7 +8,7 @@ from dash_table import DataTable
 from utils import mk_empty_datatable
 
 
-session = dcc.Store(id='session', storage_type='session')
+session = dcc.Store(id='session', storage_type='memory')
 number_of_balls = dcc.Input(
     id='number-of-balls',
     type='number',
@@ -33,8 +33,7 @@ distribution = dcc.Dropdown(
     id='distribution',
     placeholder='Distribution',
     options=[{'label': v, 'value': v} for v in ['uniform', 'normal low variance', 'normal high variance']],
-    value='uniform',
-    style={"margin-left": "15px"}
+    value='uniform'
 )
 reset_button = dbc.Button('Reset', id='reset', n_clicks=0)
 addup_button = dbc.Button('Add 1 sample', id='addup', n_clicks=0, block=True)

@@ -17,12 +17,11 @@ def register_callbacks(app):
         [Input('distribution', 'value'),
          Input('number-of-balls', 'value'),
          Input('sample-size', 'value'),
-         Input('reset', 'n_clicks'),
          Input('addup', 'n_clicks'),
          Input('addup1000', 'n_clicks')],
         [State('session', 'data')],
     )
-    def update_figure(distribution, number_of_balls, sample_size, n_clicks_reset,
+    def update_figure(distribution, number_of_balls, sample_size,
                       n_clicks_addup, n_clicks_addup1000, session_data):
         if dash.callback_context.triggered[0]['prop_id'] == 'addup.n_clicks':
             return be.update_figure(distribution, number_of_balls, 1, sample_size, session_data)
